@@ -1,0 +1,9 @@
+Gesture : ABOUT
+Mode    : single-hand
+Created : 2026-03-11 14:24:27
+
+Session : 2026-03-11 14:25:41
+Samples : 200 / 200
+
+Session : 2026-03-13 20:14:19
+Samples : 200 / 200

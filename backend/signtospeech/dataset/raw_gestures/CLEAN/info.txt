@@ -1,0 +1,6 @@
+Gesture : CLEAN
+Mode    : dual-hand
+Created : 2026-03-11 14:32:09
+
+Session : 2026-03-11 14:32:52
+Samples : 200 / 200

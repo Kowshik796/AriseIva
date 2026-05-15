@@ -1,0 +1,6 @@
+Gesture : TELL
+Mode    : single-hand
+Created : 2026-03-13 20:02:37
+
+Session : 2026-03-13 20:03:39
+Samples : 346 / 500

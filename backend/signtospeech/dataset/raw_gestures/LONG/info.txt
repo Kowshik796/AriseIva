@@ -1,0 +1,9 @@
+Gesture : LONG
+Mode    : dual-hand
+Created : 2026-03-10 20:34:07
+
+Session : 2026-03-10 20:34:49
+Samples : 200 / 200
+
+Session : 2026-03-10 21:02:15
+Samples : 200 / 200

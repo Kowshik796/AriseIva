@@ -1,0 +1,6 @@
+Gesture : READY
+Mode    : dual-hand
+Created : 2026-03-13 22:01:22
+
+Session : 2026-03-13 22:01:57
+Samples : 200 / 200

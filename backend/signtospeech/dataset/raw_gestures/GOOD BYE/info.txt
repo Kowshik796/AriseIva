@@ -1,0 +1,6 @@
+Gesture : GOOD BYE
+Mode    : single-hand
+Created : 2026-03-13 19:52:31
+
+Session : 2026-03-13 19:53:18
+Samples : 200 / 200

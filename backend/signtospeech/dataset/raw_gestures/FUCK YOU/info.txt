@@ -1,0 +1,6 @@
+Gesture : FUCK YOU
+Mode    : single-hand
+Created : 2026-03-11 14:09:55
+
+Session : 2026-03-11 14:10:53
+Samples : 200 / 200

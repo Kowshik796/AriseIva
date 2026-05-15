@@ -1,0 +1,9 @@
+Gesture : NICE
+Mode    : dual-hand
+Created : 2026-03-13 19:40:42
+
+Session : 2026-03-13 19:42:20
+Samples : 200 / 200
+
+Session : 2026-03-13 21:59:09
+Samples : 200 / 200

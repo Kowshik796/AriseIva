@@ -1,0 +1,6 @@
+Gesture : DAY
+Mode    : dual-hand
+Created : 2026-03-13 19:43:07
+
+Session : 2026-03-13 19:44:34
+Samples : 200 / 200

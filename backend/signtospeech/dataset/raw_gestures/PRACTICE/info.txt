@@ -1,0 +1,6 @@
+Gesture : PRACTICE
+Mode    : dual-hand
+Created : 2026-03-11 14:21:44
+
+Session : 2026-03-11 14:22:30
+Samples : 200 / 200

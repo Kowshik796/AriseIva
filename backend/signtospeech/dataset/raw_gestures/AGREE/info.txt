@@ -1,0 +1,9 @@
+Gesture : AGREE
+Mode    : dual-hand
+Created : 2026-03-10 20:39:18
+
+Session : 2026-03-10 20:39:46
+Samples : 200 / 200
+
+Session : 2026-03-10 21:03:42
+Samples : 200 / 200

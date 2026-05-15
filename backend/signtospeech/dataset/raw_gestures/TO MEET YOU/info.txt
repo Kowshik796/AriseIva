@@ -1,0 +1,6 @@
+Gesture : TO MEET YOU
+Mode    : dual-hand
+Created : 2026-03-13 19:50:05
+
+Session : 2026-03-13 19:51:11
+Samples : 200 / 200

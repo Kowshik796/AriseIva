@@ -1,0 +1,55 @@
+Arise IVA — Training Report
+Generated  : 2026-03-13 22:23:23
+Algorithm  : MLPClassifier  (unified single+dual hand)
+Rows       : 9,321
+Features   : 84  (84 — unified space)
+Labels     : ['ABOUT', 'AGREE', 'ANSWER', 'ARE', 'BECAUSE', 'CLEAN', 'DAY', 'DISAGREE', 'DRIVE', 'GOOD BYE', 'HAVE', 'HELLO', 'HELP', 'HOW', 'LATER', 'LONG', 'ME', 'NICE', 'NO', 'ONE', 'PLAN', 'PLEASE', 'PRACTICE', 'PREPARE', 'READY', 'SAY', 'SEE YOU', 'SORRY', 'STUDY', 'TEACH', 'TELL', 'THANK YOU', 'THINK', 'TO MEET YOU', 'VANAKAM', 'WASH', 'WELCOME', 'WHAT', 'YES', 'YOU', 'YOUSELF']
+Accuracy   : 94.65%
+
+              precision    recall  f1-score   support
+
+       ABOUT       1.00      1.00      1.00        10
+       AGREE       0.90      0.95      0.93        20
+      ANSWER       1.00      1.00      1.00        10
+         ARE       1.00      1.00      1.00        10
+     BECAUSE       1.00      1.00      1.00        10
+       CLEAN       1.00      1.00      1.00        10
+         DAY       1.00      1.00      1.00        10
+    DISAGREE       0.88      0.88      0.88        17
+       DRIVE       1.00      0.70      0.82        10
+    GOOD BYE       0.90      0.90      0.90        10
+        HAVE       0.91      1.00      0.95        10
+       HELLO       0.91      0.91      0.91        11
+        HELP       1.00      1.00      1.00        10
+         HOW       0.87      1.00      0.93        20
+       LATER       1.00      0.90      0.95        10
+        LONG       0.86      0.95      0.90        20
+          ME       0.91      1.00      0.95        10
+        NICE       1.00      1.00      1.00        20
+          NO       1.00      1.00      1.00        10
+         ONE       0.91      1.00      0.95        10
+        PLAN       1.00      1.00      1.00        10
+      PLEASE       1.00      0.90      0.95        10
+    PRACTICE       1.00      0.70      0.82        10
+     PREPARE       1.00      0.90      0.95        10
+       READY       1.00      1.00      1.00        10
+         SAY       1.00      1.00      1.00        11
+     SEE YOU       0.90      0.90      0.90        10
+       SORRY       0.91      1.00      0.95        10
+       STUDY       1.00      1.00      1.00        10
+       TEACH       0.89      0.80      0.84        10
+        TELL       0.95      1.00      0.97        18
+   THANK YOU       0.91      1.00      0.95        10
+       THINK       0.91      1.00      0.95        10
+ TO MEET YOU       1.00      0.90      0.95        10
+     VANAKAM       1.00      1.00      1.00        10
+        WASH       0.83      1.00      0.91        10
+     WELCOME       0.90      0.90      0.90        10
+        WHAT       1.00      1.00      1.00        10
+         YES       1.00      1.00      1.00        10
+         YOU       0.89      0.80      0.84        10
+     YOUSELF       1.00      0.70      0.82        10
+
+    accuracy                           0.95       467
+   macro avg       0.95      0.94      0.95       467
+weighted avg       0.95      0.95      0.95       467

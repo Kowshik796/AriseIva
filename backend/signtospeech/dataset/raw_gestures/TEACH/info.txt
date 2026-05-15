@@ -1,0 +1,6 @@
+Gesture : TEACH
+Mode    : dual-hand
+Created : 2026-03-10 20:42:02
+
+Session : 2026-03-10 20:44:12
+Samples : 200 / 200

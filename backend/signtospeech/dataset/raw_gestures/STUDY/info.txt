@@ -1,0 +1,6 @@
+Gesture : STUDY
+Mode    : dual-hand
+Created : 2026-03-11 14:35:28
+
+Session : 2026-03-11 14:36:23
+Samples : 200 / 200

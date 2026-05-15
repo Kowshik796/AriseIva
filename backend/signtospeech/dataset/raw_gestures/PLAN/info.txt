@@ -1,0 +1,6 @@
+Gesture : PLAN
+Mode    : dual-hand
+Created : 2026-03-11 14:16:06
+
+Session : 2026-03-11 14:20:46
+Samples : 200 / 200

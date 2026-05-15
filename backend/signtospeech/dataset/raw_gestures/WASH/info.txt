@@ -1,0 +1,6 @@
+Gesture : WASH
+Mode    : dual-hand
+Created : 2026-03-11 14:30:43
+
+Session : 2026-03-11 14:31:44
+Samples : 200 / 200

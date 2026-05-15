@@ -1,0 +1,6 @@
+Gesture : VANAKAM
+Mode    : dual-hand
+Created : 2026-03-13 22:10:42
+
+Session : 2026-03-13 22:12:14
+Samples : 200 / 200
