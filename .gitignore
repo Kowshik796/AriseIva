@@ -4,3 +4,7 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+__pycache__/
+*.pyc
+venv/
+.env/

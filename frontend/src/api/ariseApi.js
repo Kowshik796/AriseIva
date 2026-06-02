@@ -1,15 +1,19 @@
 import axios from 'axios';
 
-// ── Sign→Speech backend (Flask, port 5000) ────────────────────────────────────
+const IS_DEV = import.meta.env.MODE === 'development';
+const GESTURE_BASE_URL = IS_DEV ? 'http://localhost:8000/api/gesture' : '/api/gesture';
+const ISL_BASE_URL = IS_DEV ? 'http://localhost:8000/api/isl' : '/api/isl';
+
+// ── Sign→Speech backend ────────────────────────────────────
 const gestureApi = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: GESTURE_BASE_URL,
   timeout: 8000,
   headers: { 'Content-Type': 'application/json' },
 });
 
-// ── Speech→ISL backend (FastAPI, port 8000) ───────────────────────────────────
+// ── Speech→ISL backend ───────────────────────────────────
 const islApi = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: ISL_BASE_URL,
   timeout: 8000,
   headers: { 'Content-Type': 'application/json' },
 });

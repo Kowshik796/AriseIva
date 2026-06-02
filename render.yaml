@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: arise-iva-unified
+    env: docker
+    plan: free
+    healthCheckPath: /api/isl/health
+    dockerfilePath: ./Dockerfile
