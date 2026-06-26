@@ -1,3 +1,4 @@
+mediapipe==0.10.35
 # Unified requirements for Arise IVA (Both Backends)
 fastapi
 uvicorn[standard]
