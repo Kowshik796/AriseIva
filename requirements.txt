@@ -66,3 +66,4 @@ fastapi
 uvicorn
 a2wsgi
 pydantic
+pydantic
