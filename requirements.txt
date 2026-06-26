@@ -62,3 +62,5 @@ urllib3==2.7.0
 Werkzeug==3.1.8
 wrapt==2.2.2
 gunicorn
+fastapi
+uvicorn
