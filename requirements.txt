@@ -1,6 +1,9 @@
 pip
 setuptools
 wheel
+pip
+setuptools
+wheel
 absl-py==2.4.0
 astunparse==1.6.3
 blinker==1.9.0
