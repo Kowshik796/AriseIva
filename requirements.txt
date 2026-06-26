@@ -64,3 +64,4 @@ wrapt==2.2.2
 gunicorn
 fastapi
 uvicorn
+a2wsgi
