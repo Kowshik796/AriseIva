@@ -1,0 +1,9 @@
+# Exclude heavy video assets and dataset files from Python serverless function bundle
+frontend/public/signs/
+backend/signtospeech/dataset/raw_data/
+backend/signtospeech/dataset/processed/
+backend/signtospeech/tests/
+backend/signtospeech/scripts/
+venv/
+.venv/
+node_modules/
