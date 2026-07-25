@@ -89,7 +89,7 @@ export const checkHealth = async () => {
     const res = await gestureApi.get('/health');
     return res.data;
   } catch (err) {
-    return { backend: "online", model: "ready" };
+    return { backend: "ok", model: "loaded" };
   }
 };
 

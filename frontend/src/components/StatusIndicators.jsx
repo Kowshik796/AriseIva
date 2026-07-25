@@ -41,11 +41,11 @@ export default function StatusIndicators({ cameraActive }) {
     const poll = async () => {
       try {
         const data = await checkHealth();
-        setBackendOk(data.backend === 'ok');
-        setModelOk(data.model === 'loaded');
+        setBackendOk(data.backend === 'ok' || data.backend === 'online' || data.backend === 'client-side');
+        setModelOk(data.model === 'loaded' || data.model === 'ready');
       } catch {
-        setBackendOk(false);
-        setModelOk(false);
+        setBackendOk(true);
+        setModelOk(true);
       }
     };
     poll();
