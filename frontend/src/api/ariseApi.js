@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 const IS_DEV = import.meta.env.MODE === 'development';
-const GESTURE_BASE_URL = IS_DEV ? 'http://localhost:8000/api/gesture' : '/api/gesture';
-const ISL_BASE_URL = IS_DEV ? 'http://localhost:8000/api/isl' : '/api/isl';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || (IS_DEV ? 'http://localhost:8000' : '');
+
+const GESTURE_BASE_URL = `${BACKEND_URL}/api/gesture`;
+const ISL_BASE_URL     = `${BACKEND_URL}/api/isl`;
 
 // ── Sign→Speech backend ────────────────────────────────────
 const gestureApi = axios.create({
