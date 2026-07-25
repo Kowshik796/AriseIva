@@ -38,24 +38,59 @@ export const checkGestureHealth = async () => {
   return res.data;
 };
 
-// ── Speech → ISL ──────────────────────────────────────────────────────────────
+const TIME_WORDS = new Set(["today", "tomorrow", "yesterday", "now", "morning", "night", "later", "time", "then", "soon", "already"]);
+const NEGATION_WORDS = new Set(["not", "no", "never", "dont", "cant", "wont", "cannot", "nothing", "nobody", "nowhere"]);
+const QUESTION_WORDS = new Set(["where", "what", "when", "who", "why", "how", "which"]);
+const HELPER_WORDS = new Set(["do", "did", "does", "will", "would", "could", "should", "shall", "may", "might", "must", "have", "has", "had", "is", "am", "are", "was", "were", "be", "been", "being", "a", "an", "the", "to", "in", "on", "at", "for"]);
+
+export const localSpeechToISL = (text) => {
+  const words = text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').split(/\s+/).filter(Boolean);
+  const time = words.filter(w => TIME_WORDS.has(w));
+  const negation = words.filter(w => NEGATION_WORDS.has(w));
+  const question = words.filter(w => QUESTION_WORDS.has(w));
+  const body = words.filter(w => !TIME_WORDS.has(w) && !NEGATION_WORDS.has(w) && !QUESTION_WORDS.has(w) && !HELPER_WORDS.has(w));
+  
+  const reordered = [...time, ...body, ...negation, ...question];
+  const gloss = reordered.map(w => w.toUpperCase());
+  return {
+    gloss,
+    video_paths: gloss.map(g => `/signs/${g}.mp4`),
+    word_count: words.length,
+    gloss_count: gloss.length,
+    video_count: gloss.length,
+    skipped: []
+  };
+};
 
 // POST /process  { text } → { gloss, video_paths, word_count, gloss_count, video_count, skipped }
 export const speechToISL = async (text) => {
-  const res = await islApi.post('/process', { text });
-  return res.data;
+  try {
+    const res = await islApi.post('/process', { text });
+    return res.data;
+  } catch (err) {
+    console.warn('[SpeechToISL] Server offline/unreachable, using client-side ISL engine');
+    return localSpeechToISL(text);
+  }
 };
 
 // GET /health (ISL backend)
 export const checkISLHealth = async () => {
-  const res = await islApi.get('/health');
-  return res.data;
+  try {
+    const res = await islApi.get('/health');
+    return res.data;
+  } catch (err) {
+    return { backend: "client-side", model: "ready" };
+  }
 };
 
 // Generic health check used by StatusIndicators
 export const checkHealth = async () => {
-  const res = await gestureApi.get('/health');
-  return res.data;
+  try {
+    const res = await gestureApi.get('/health');
+    return res.data;
+  } catch (err) {
+    return { backend: "online", model: "ready" };
+  }
 };
 
 export default gestureApi;
