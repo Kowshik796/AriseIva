@@ -51,12 +51,12 @@ class ModelLoader:
 
         # ── Validate labels look like real names ───────────────────────────────
         if all(l.isdigit() for l in labels):
-            print("[ModelLoader] ✗  Labels are integers, not gesture names!")
+            print("[ModelLoader] [!] Labels are integers, not gesture names!")
             print("[ModelLoader]    Retrain: python scripts/train_model.py")
 
         print(f"[ModelLoader] Algorithm  : {type(model).__name__}")
         print(f"[ModelLoader] Features   : {n_features}")
-        print(f"[ModelLoader] Scaler     : {'yes ✓' if scaler else 'no'}")
+        print(f"[ModelLoader] Scaler     : {'yes' if scaler else 'no'}")
         print(f"[ModelLoader] Labels ({len(labels)}) : {labels}")
 
         return model, scaler, labels, n_features

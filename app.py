@@ -3,8 +3,13 @@ import sys
 from pathlib import Path
 
 # Add backend folders to python path so their internal imports work
-sys.path.insert(0, str(Path(__file__).parent / "backend" / "speechtosign"))
-sys.path.insert(0, str(Path(__file__).parent / "backend" / "signtospeech"))
+ROOT_DIR = Path(__file__).resolve().parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+# Append sub-packages to sys.path for internal relative imports
+sys.path.append(str(ROOT_DIR / "backend" / "signtospeech" / "app"))
+sys.path.append(str(ROOT_DIR / "backend" / "speechtosign" / "app"))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,6 +34,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Root health check endpoint
+@app.get("/api/health")
+def api_health():
+    return {"status": "ok", "service": "Arise IVA Unified API"}
+
 # Mount the ISL backend at /api/isl
 app.mount("/api/isl", isl_app)
 
@@ -36,7 +46,7 @@ app.mount("/api/isl", isl_app)
 app.mount("/api/gesture", WSGIMiddleware(gesture_app))
 
 # Mount the frontend static files
-frontend_dist = Path(__file__).parent / "frontend" / "dist"
+frontend_dist = ROOT_DIR / "frontend" / "dist"
 if frontend_dist.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
 else:

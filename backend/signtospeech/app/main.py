@@ -50,10 +50,14 @@ except Exception as e:
     print(f"[Server] WARNING — model failed to load: {e}")
 
 # ── Init pipeline (shared across requests) ────────────────────────────────────
-detector  = HandDetector(max_hands=2 if use_dual else 1, detection_confidence=0.6)
-processor = LandmarkProcessor()
-predictor = GesturePredictor(model, scaler, labels) if MODEL_OK else None
-tts       = TextToSpeech(rate=145, volume=1.0)
+try:
+    detector  = HandDetector(max_hands=2 if use_dual else 1, detection_confidence=0.6)
+    processor = LandmarkProcessor()
+    predictor = GesturePredictor(model, scaler, labels) if MODEL_OK else None
+    tts       = TextToSpeech(rate=145, volume=1.0)
+except Exception as e:
+    print(f"[Server] WARNING — pipeline init issue: {e}")
+    detector = processor = predictor = tts = None
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -72,59 +76,77 @@ def health():
 @app.route("/predict-gesture", methods=["POST"])
 def predict_gesture():
     """
-    Receives a base64 JPEG frame from the React webcam,
-    runs your gesture model, returns gesture + confidence.
+    Receives either:
+    1) { "landmarks": [float, ...] } — direct landmark vector (client-side MediaPipe)
+    2) { "frame": "base64..." }      — base64 JPEG frame (server-side MediaPipe)
+    Runs model prediction and returns gesture + confidence.
     """
-    if not MODEL_OK:
+    if not MODEL_OK or not predictor:
         return jsonify({"error": "Model not loaded"}), 503
 
     data = request.get_json(silent=True)
-    if not data or "frame" not in data:
-        return jsonify({"error": "Missing 'frame' field"}), 400
+    if not data:
+        return jsonify({"error": "Missing payload"}), 400
 
-    # ── Decode base64 → OpenCV frame ─────────────────────────────────────────
-    try:
-        img_bytes = base64.b64decode(data["frame"])
-        img_array = np.frombuffer(img_bytes, dtype=np.uint8)
-        import cv2
-        frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        if frame is None:
-            raise ValueError("cv2.imdecode returned None")
-    except Exception as e:
-        return jsonify({"error": f"Invalid frame: {e}"}), 400
+    # ── Option 1: Direct landmark vector (fast client-side MediaPipe) ────────
+    if "landmarks" in data and isinstance(data["landmarks"], list):
+        try:
+            vector = np.array(data["landmarks"], dtype=np.float32)
+            gesture, confidence = predictor.predict(vector)
+            if gesture == "Unknown" or confidence < 0.40:
+                return jsonify({"gesture": None, "confidence": round(float(confidence), 4)})
+            return jsonify({
+                "gesture": gesture,
+                "confidence": round(float(confidence), 4),
+            })
+        except Exception as e:
+            return jsonify({"error": f"Invalid landmark vector: {e}"}), 400
 
-    # ── Run hand detection ────────────────────────────────────────────────────
-    try:
-        import cv2
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        rgb.flags.writeable = False
-        results = detector.hands.process(rgb)
+    # ── Option 2: Base64 JPEG frame ──────────────────────────────────────────
+    if "frame" in data:
+        if not detector or not processor:
+            return jsonify({"error": "Hand detector not initialized"}), 503
 
-        # Extract feature vector (single or dual hand)
-        vector = (
-            processor.extract_dual_landmarks(results)
-            if use_dual
-            else processor.extract_landmarks(results)
-        )
+        try:
+            img_bytes = base64.b64decode(data["frame"])
+            img_array = np.frombuffer(img_bytes, dtype=np.uint8)
+            import cv2
+            frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+            if frame is None:
+                raise ValueError("cv2.imdecode returned None")
+        except Exception as e:
+            return jsonify({"error": f"Invalid frame: {e}"}), 400
 
-        if vector is None:
-            # No hand visible in frame
-            return jsonify({"gesture": None, "confidence": 0.0})
+        try:
+            import cv2
+            rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            rgb.flags.writeable = False
+            results = detector.hands.process(rgb)
 
-        # ── Predict ───────────────────────────────────────────────────────────
-        gesture, confidence = predictor.predict(vector)
+            vector = (
+                processor.extract_dual_landmarks(results)
+                if use_dual
+                else processor.extract_landmarks(results)
+            )
 
-        if gesture == "Unknown" or confidence < 0.40:
-            return jsonify({"gesture": None, "confidence": round(float(confidence), 4)})
+            if vector is None:
+                return jsonify({"gesture": None, "confidence": 0.0})
 
-        return jsonify({
-            "gesture":    gesture,
-            "confidence": round(float(confidence), 4),
-        })
+            gesture, confidence = predictor.predict(vector)
 
-    except Exception as e:
-        print(f"[predict-gesture] Error: {e}")
-        return jsonify({"error": str(e)}), 500
+            if gesture == "Unknown" or confidence < 0.40:
+                return jsonify({"gesture": None, "confidence": round(float(confidence), 4)})
+
+            return jsonify({
+                "gesture":    gesture,
+                "confidence": round(float(confidence), 4),
+            })
+
+        except Exception as e:
+            print(f"[predict-gesture] Error: {e}")
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"error": "Missing 'frame' or 'landmarks' in request"}), 400
 
 
 @app.route("/speak", methods=["POST"])

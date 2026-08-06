@@ -8,10 +8,9 @@ Each hand is drawn with its own colour so left/right are visually distinct.
 import cv2
 import numpy as np
 import mediapipe as mp
-
-mp_hands  = mp.solutions.hands
-mp_draw   = mp.solutions.drawing_utils
-mp_styles = mp.solutions.drawing_styles
+import mediapipe.python.solutions.hands as mp_hands
+import mediapipe.python.solutions.drawing_utils as mp_draw
+import mediapipe.python.solutions.drawing_styles as mp_styles
 
 # Per-hand landmark colours: index 0 → first hand, index 1 → second hand
 _HAND_COLOURS = [

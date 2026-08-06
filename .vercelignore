@@ -1,9 +1,14 @@
-# Exclude heavy video assets and dataset files from Python serverless function bundle
-frontend/public/signs/
+# Exclude virtual environments, node_modules, and raw datasets from Vercel function bundle
+venv/
+.venv/
+node_modules/
+frontend/node_modules/
+frontend/src/
 backend/signtospeech/dataset/raw_data/
 backend/signtospeech/dataset/processed/
 backend/signtospeech/tests/
 backend/signtospeech/scripts/
-venv/
-.venv/
-node_modules/
+.git/
+.github/
+.vscode/
+*.log
